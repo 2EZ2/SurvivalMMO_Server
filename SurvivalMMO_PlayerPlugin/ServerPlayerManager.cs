@@ -35,7 +35,6 @@ namespace SurvivalMMO_PlayerPlugin
 
             RiftView newConnection = new RiftView(e.Client.ID, e.Client.ID);
 
-
             lock (players)
                 //Spawn players on new client
                 foreach (RiftView view in players.Values)
@@ -77,24 +76,55 @@ namespace SurvivalMMO_PlayerPlugin
         void Client_PlayerMessageReceivedEvent(object sender, MessageReceivedEventArgs e)
         {
             if(e.Tag == MessageTag.SendStream)
-            {
-                Console.WriteLine($@"Message received from player {e.Client}");
-
+            {            
                 using (DarkRiftReader reader = e.GetMessage().GetReader())
                 {
                     StreamView view = reader.ReadSerializable<StreamView>();
-                    Console.WriteLine($@"Streamview Deserialized size:{view.Data.Length}");
+                    
                     using (Message message = Message.Create(MessageTag.ReceivingStream, view))
                     {
+                        
                         foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
                         {
                             sendTo.SendMessage(message, SendMode.Reliable);
                         }
                     }
-                }
-                    
+                }                   
             }
-            
+            else if(e.Tag == MessageTag.RPC)
+            {
+                using (DarkRiftReader reader = e.GetMessage().GetReader())
+                {
+                    RPCView view = reader.ReadSerializable<RPCView>();
+                    IClient[] clients = view.excludeSelf ? ClientManager.GetAllClients().Except(new IClient[] { e.Client }).ToArray() : ClientManager.GetAllClients();
+                    using (Message message = Message.Create(MessageTag.RPC, view))
+                    {
+                        foreach (IClient sendTo in clients)
+                        {
+                            sendTo.SendMessage(message, SendMode.Reliable);
+                        }
+                    }
+                }
+            }
+            else if (e.Tag == MessageTag.PrivateRPC)
+            {
+                using (DarkRiftReader reader = e.GetMessage().GetReader())
+                {
+                    RPCView view = reader.ReadSerializable<RPCView>();
+                    RiftView target = reader.ReadSerializable<RiftView>();
+
+                    using (Message message = Message.Create(MessageTag.RPC, view))
+                    {
+                        foreach (IClient sendTo in ClientManager.GetAllClients())
+                        {
+                            if (players[sendTo].Equals(target))
+                            {
+                                sendTo.SendMessage(message, SendMode.Reliable);
+                            }                            
+                        }
+                    }
+                }
+            }
         }
     }
 }

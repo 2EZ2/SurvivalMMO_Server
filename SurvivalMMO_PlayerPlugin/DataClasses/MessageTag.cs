@@ -21,5 +21,6 @@ namespace SurvivalMMO_PlayerPlugin
         public static readonly ushort PlayerDisconnected = 10;
         public static readonly ushort SpawnPlayer = 11;
         public static readonly ushort RemovePlayer = 12;
+        public static readonly ushort PrivateRPC = 13;
     }
 }
