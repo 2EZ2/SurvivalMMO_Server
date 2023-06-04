@@ -1,0 +1,12 @@
+C:\SurvivalMMO\SurvivalMMO_Server\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.dll
+C:\SurvivalMMO\SurvivalMMO_Server\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Release\SurvivalMMO_ServerPlugins.csproj.AssemblyReference.cache
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Release\SurvivalMMO_ServerPlugins.csproj.CoreCompileInputs.cache
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Release\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Release\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO\SurvivalMMO_Server\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO\SurvivalMMO_Server\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.pdb
+C:\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.dll
+C:\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\DarkRift Server (.NET Framework 4.0)\Plugins\SurvivalMMO_PlayerPlugin.pdb
