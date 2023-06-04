@@ -14,6 +14,8 @@ namespace SurvivalMMO_PlayerPlugin
 
         public override Version Version => new Version(1,0,0);
 
+        public ushort lastrObjIDNumber = 100;
+
         public ServerPlayerManager(PluginLoadData pluginLoadData) : base(pluginLoadData)
         {
             //Subscribe for notification when a new client connects
@@ -33,14 +35,25 @@ namespace SurvivalMMO_PlayerPlugin
 
             RiftView newConnection = new RiftView(e.Client.ID, e.Client.ID);
 
+
             lock (players)
+                //Spawn players on new client
+                foreach (RiftView view in players.Values)
+                {
+                    using (Message message = Message.Create(MessageTag.PlayerConnected, view))
+                    {
+                        e.Client.SendMessage(message, SendMode.Reliable);
+                    }
+                }
+                //Add client to client list
                 players.Add(e.Client, newConnection);
 
+            //Send player joined to all players on server
             using (Message message = Message.Create(MessageTag.PlayerConnected, newConnection))
             {
-                foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
+                foreach (IClient client in ClientManager.GetAllClients())
                 {
-                    e.Client.SendMessage(message, SendMode.Reliable);
+                    client.SendMessage(message, SendMode.Reliable);
                 }
             }
         }
@@ -56,14 +69,32 @@ namespace SurvivalMMO_PlayerPlugin
             {
                 foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
                 {
-                    e.Client.SendMessage(message, SendMode.Reliable);
+                    sendTo.SendMessage(message, SendMode.Reliable);
                 }
             }
         }
 
         void Client_PlayerMessageReceivedEvent(object sender, MessageReceivedEventArgs e)
         {
+            if(e.Tag == MessageTag.SendStream)
+            {
+                Console.WriteLine($@"Message received from player {e.Client}");
 
+                using (DarkRiftReader reader = e.GetMessage().GetReader())
+                {
+                    StreamView view = reader.ReadSerializable<StreamView>();
+                    Console.WriteLine($@"Streamview Deserialized size:{view.Data.Length}");
+                    using (Message message = Message.Create(MessageTag.ReceivingStream, view))
+                    {
+                        foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
+                        {
+                            sendTo.SendMessage(message, SendMode.Reliable);
+                        }
+                    }
+                }
+                    
+            }
+            
         }
     }
 }

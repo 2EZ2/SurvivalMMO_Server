@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="DataClasses\MessageTag.cs" />
     <Compile Include="DataClasses\RiftView.cs" />
+    <Compile Include="DataClasses\StreamExtensions.cs" />
+    <Compile Include="DataClasses\StreamView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerPlayerManager.cs" />
   </ItemGroup>

@@ -19,5 +19,7 @@ namespace SurvivalMMO_PlayerPlugin
         public static readonly ushort OwnershipUpdate = 8;
         public static readonly ushort PlayerConnected = 9;
         public static readonly ushort PlayerDisconnected = 10;
+        public static readonly ushort SpawnPlayer = 11;
+        public static readonly ushort RemovePlayer = 12;
     }
 }

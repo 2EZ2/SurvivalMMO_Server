@@ -15,6 +15,12 @@ namespace SurvivalMMO_PlayerPlugin
         public ushort ID { get; set; }
         public ushort Owner { get; set; }
 
+        public RiftView()
+        {
+            ID = 0;
+            Owner = 0;
+        }
+
         public RiftView(ushort id, ushort owner)
         {
             ID = id;

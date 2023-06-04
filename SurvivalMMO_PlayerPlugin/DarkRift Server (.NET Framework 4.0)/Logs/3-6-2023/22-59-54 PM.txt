@@ -1,0 +1,29 @@
+[Trace]   DarkRiftServer        System Details:
+                                	OS: Microsoft Windows NT 6.2.9200.0
+                                	CLS Version: 4.0.30319.42000
+                                	DarkRift: 2.10.1.0 - Pro
+[Trace]   PluginFactory         Created plugin 'ServerPlayerManager'.
+[Info]    PluginManager         Loaded plugin ServerPlayerManager version 1.0.0
+[Trace]   PluginFactory         Created plugin 'BichannelListener'.
+[Trace]   HttpHealthCheck       HTTP health check started at 'http://localhost:10666/health'
+[Trace]   BadWordFilter         Loading bad word list.
+[Trace]   BadWordFilter         Downloading bad word list from 'https://darkriftnetworking.com/DarkRift2/Resources/BadWords.xml'.
+[Trace]   DarkRiftServer        Binding listeners to ClientManager as server is externally visible.
+[Trace]   RemoteServerManager   No server registry connector configured, skipping registration.
+[Trace]   DefaultNetworkListener Starting bichannel listener.
+[Info]    DefaultNetworkListener Server mounted, listening on port 4296.
+[Trace]   DefaultNetworkListener Accepted TCP connection from 127.0.0.1:53257.
+[Trace]   DefaultNetworkListener Accepted UDP connection from 127.0.0.1:55101.
+[Info]    ClientManager         New client [0] connected [127.0.0.1:53257|127.0.0.1:55101].
+[Info]    ClientManager         Client [0] disconnected.
+[Error]   BadWordFilter         Could not download bad word list from remote. The bad word filter cannot filter text without a source.
+                                
+                                Consider trying to reload the bad word list with the command 'badwordfilter update' or point the 'url' setting a an accessible source of bad words to filter (https://www.darkriftnetworking.com/DarkRift2/Docs/2.10.1.0/advanced/internal_plugins/bad_word_filter.html).
+                                 System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 68.183.47.134:443
+                                    at System.Net.Sockets.Socket.InternalEndConnect(IAsyncResult asyncResult)
+                                    at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)
+                                    at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+                                    --- End of inner exception stack trace ---
+                                    at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)
+                                    at System.Net.WebClient.GetWebResponse(WebRequest request, IAsyncResult result)
+                                    at System.Net.WebClient.DownloadBitsResponseCallback(IAsyncResult result)
