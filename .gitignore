@@ -1,0 +1,5 @@
+*.vs/
+SurvivalMMO_PlayerPlugin/DarkRift Server (.NET Framework 4.0)/Logs/
+
+*.vsidx
+.vs/SurvivalMMO_Server/v17/.suo
