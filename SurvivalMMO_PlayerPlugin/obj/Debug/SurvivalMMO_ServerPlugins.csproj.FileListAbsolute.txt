@@ -1,0 +1,16 @@
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.Server.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.Client.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.xml
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.Server.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.Server.xml
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.Client.pdb
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\DarkRift.Client.xml
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_ServerPlugins.csproj.AssemblyReference.cache
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_ServerPlugins.csproj.CoreCompileInputs.cache
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_ServerPlugins.csproj.CopyComplete
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_PlayerPlugin.pdb
