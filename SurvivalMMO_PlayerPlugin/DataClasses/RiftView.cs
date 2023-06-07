@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,18 +11,19 @@ namespace SurvivalMMO_PlayerPlugin
     /// <summary>
     ///     Holds serializable data about a player.
     /// </summary>
-    public class RiftView : IDarkRiftSerializable
+    [System.Serializable]
+    public class RiftView : IDarkRiftSerializable, ISerializable
     {
-        public ushort ID { get; set; }
+        public Guid ID { get; set; }
         public ushort Owner { get; set; }
 
         public RiftView()
         {
-            ID = 0;
+            ID = new Guid();
             Owner = 0;
         }
 
-        public RiftView(ushort id, ushort owner)
+        public RiftView(Guid id, ushort owner)
         {
             ID = id;
             Owner = owner;
@@ -29,16 +31,21 @@ namespace SurvivalMMO_PlayerPlugin
 
         public void Deserialize(DeserializeEvent e)
         {
-            this.ID = e.Reader.ReadUInt16();
+            byte[] id = e.Reader.ReadBytes();
+            this.ID = new Guid(id);
             this.Owner = e.Reader.ReadUInt16();
         }
 
         public void Serialize(SerializeEvent e)
         {
-            e.Writer.Write(ID);
-            e.Writer.Write(Owner);
+            e.Writer.Write(this.ID.ToByteArray());
+            e.Writer.Write(this.Owner);
         }
 
+        public override string ToString()
+        {
+            return $@"VIEW: {ID}, {Owner}";
+        }
         /// <summary>
         ///     Compares an object for equality with this.
         /// </summary>
@@ -59,7 +66,18 @@ namespace SurvivalMMO_PlayerPlugin
         /// <returns>hash code.</returns>
         public override int GetHashCode()
         {
-            return (int)(this.ID * 23 + this.Owner * 29);
+            return (int)(ID.GetHashCode() + this.Owner.GetHashCode());
+        }
+
+        public RiftView(SerializationInfo info, StreamingContext ctxt)
+        {
+            ID = (Guid)info.GetValue("ID", typeof(Guid));
+            Owner = (ushort)info.GetValue("OWN", typeof(ushort));
+        }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ID", ID);
+            info.AddValue("OWN", Owner);
         }
     }
 }

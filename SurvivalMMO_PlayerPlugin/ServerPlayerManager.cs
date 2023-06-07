@@ -25,50 +25,52 @@ namespace SurvivalMMO_PlayerPlugin
             ClientManager.ClientDisconnected += ClientManager_ClientDisconnected;
         }
 
+        //Dictionary<IClient, RiftView> players = new Dictionary<IClient, RiftView>();
 
-        Dictionary<IClient, RiftView> players = new Dictionary<IClient, RiftView>();
+        List<IClient> playerList = new List<IClient>();
 
         void ClientManager_ClientConnected(object sender, ClientConnectedEventArgs e)
         {
             //Subscribe to when this client sends messages
             e.Client.MessageReceived += Client_PlayerMessageReceivedEvent;
 
-            RiftView newConnection = new RiftView(e.Client.ID, e.Client.ID);
-
-            lock (players)
-                //Spawn players on new client
-                foreach (RiftView view in players.Values)
+            lock (playerList)
+            {
+                playerList.Add(e.Client);
+            }
+            
+            using(DarkRiftWriter writer = DarkRiftWriter.Create())
+            {
+                writer.Write(e.Client.ID);
+                //Send player joined to all players on server
+                using (Message message = Message.Create(MessageTag.PlayerConnected, writer))
                 {
-                    using (Message message = Message.Create(MessageTag.PlayerConnected, view))
+                    foreach (IClient client in ClientManager.GetAllClients())
                     {
-                        e.Client.SendMessage(message, SendMode.Reliable);
+                        client.SendMessage(message, SendMode.Reliable);
                     }
                 }
-                //Add client to client list
-                players.Add(e.Client, newConnection);
-
-            //Send player joined to all players on server
-            using (Message message = Message.Create(MessageTag.PlayerConnected, newConnection))
-            {
-                foreach (IClient client in ClientManager.GetAllClients())
-                {
-                    client.SendMessage(message, SendMode.Reliable);
-                }
             }
+            
         }
 
         private void ClientManager_ClientDisconnected(object sender, ClientDisconnectedEventArgs e)
         {
-            RiftView player = new RiftView(e.Client.ID, e.Client.ID);
-
-            lock (players)
-                players.Remove(e.Client);
-
-            using (Message message = Message.Create(MessageTag.PlayerDisconnected, player))
+            lock (playerList)
             {
-                foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
+                playerList.Remove(e.Client);
+            }
+
+            using (DarkRiftWriter writer = DarkRiftWriter.Create())
+            {
+                writer.Write(e.Client.ID);
+                //Send player Disconnected to all players on server
+                using (Message message = Message.Create(MessageTag.PlayerDisconnected, writer))
                 {
-                    sendTo.SendMessage(message, SendMode.Reliable);
+                    foreach (IClient client in ClientManager.GetAllClients())
+                    {
+                        client.SendMessage(message, SendMode.Reliable);
+                    }
                 }
             }
         }
@@ -79,16 +81,31 @@ namespace SurvivalMMO_PlayerPlugin
             {            
                 using (DarkRiftReader reader = e.GetMessage().GetReader())
                 {
-                    StreamView view = reader.ReadSerializable<StreamView>();
-                    
-                    using (Message message = Message.Create(MessageTag.ReceivingStream, view))
+                    ushort messageCount = reader.ReadUInt16(); //How many messages am i recieving?
+
+                    //Gather Messages
+                    if (messageCount > 0)
                     {
-                        
-                        foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
+                        RiftMessage[] messages = new RiftMessage[messageCount];
+
+                        for (int i = 0; i < messageCount; i++)
                         {
-                            sendTo.SendMessage(message, SendMode.Reliable);
+                            messages[i] = reader.ReadSerializable<RiftMessage>();
                         }
-                    }
+
+                        using (DarkRiftWriter writer = DarkRiftWriter.Create())
+                        {
+                            writer.Write(messages);
+
+                            using (Message message = Message.Create(MessageTag.ReceivingStream, writer))
+                            {
+                                foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
+                                {
+                                    sendTo.SendMessage(message, SendMode.Unreliable);
+                                }
+                            }
+                        }
+                    }                                                
                 }                   
             }
             else if(e.Tag == MessageTag.RPC)
@@ -115,13 +132,9 @@ namespace SurvivalMMO_PlayerPlugin
 
                     using (Message message = Message.Create(MessageTag.RPC, view))
                     {
-                        foreach (IClient sendTo in ClientManager.GetAllClients())
-                        {
-                            if (players[sendTo].Equals(target))
-                            {
-                                sendTo.SendMessage(message, SendMode.Reliable);
-                            }                            
-                        }
+                        IClient sendTo = playerList.Find(x => x.ID == target.Owner);
+
+                        sendTo?.SendMessage(message, SendMode.Reliable);
                     }
                 }
             }
