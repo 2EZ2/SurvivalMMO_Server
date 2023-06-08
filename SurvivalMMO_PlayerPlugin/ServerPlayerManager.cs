@@ -14,7 +14,8 @@ namespace SurvivalMMO_PlayerPlugin
 
         public override Version Version => new Version(1,0,0);
 
-        public ushort lastrObjIDNumber = 100;
+
+        List<IClient> clientList = new List<IClient>();
 
         public ServerPlayerManager(PluginLoadData pluginLoadData) : base(pluginLoadData)
         {
@@ -25,18 +26,14 @@ namespace SurvivalMMO_PlayerPlugin
             ClientManager.ClientDisconnected += ClientManager_ClientDisconnected;
         }
 
-        //Dictionary<IClient, RiftView> players = new Dictionary<IClient, RiftView>();
-
-        List<IClient> playerList = new List<IClient>();
-
         void ClientManager_ClientConnected(object sender, ClientConnectedEventArgs e)
         {
             //Subscribe to when this client sends messages
             e.Client.MessageReceived += Client_PlayerMessageReceivedEvent;
 
-            lock (playerList)
+            lock (clientList)
             {
-                playerList.Add(e.Client);
+                clientList.Add(e.Client);
             }
             
             using(DarkRiftWriter writer = DarkRiftWriter.Create())
@@ -56,9 +53,9 @@ namespace SurvivalMMO_PlayerPlugin
 
         private void ClientManager_ClientDisconnected(object sender, ClientDisconnectedEventArgs e)
         {
-            lock (playerList)
+            lock (clientList)
             {
-                playerList.Remove(e.Client);
+                clientList.Remove(e.Client);
             }
 
             using (DarkRiftWriter writer = DarkRiftWriter.Create())
@@ -132,7 +129,7 @@ namespace SurvivalMMO_PlayerPlugin
 
                     using (Message message = Message.Create(MessageTag.RPC, view))
                     {
-                        IClient sendTo = playerList.Find(x => x.ID == target.Owner);
+                        IClient sendTo = clientList.Find(x => x.ID == target.Owner);
 
                         sendTo?.SendMessage(message, SendMode.Reliable);
                     }
