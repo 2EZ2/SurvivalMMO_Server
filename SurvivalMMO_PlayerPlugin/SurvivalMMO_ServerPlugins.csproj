@@ -56,7 +56,7 @@
     <Compile Include="DataClasses\StreamView.cs" />
     <Compile Include="NetworkIdentityManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataClasses\RPCView.cs" />
+    <Compile Include="DataClasses\RPCDataView.cs" />
     <Compile Include="ServerPlayerManager.cs" />
     <Compile Include="UniqueIDGenerator.cs" />
   </ItemGroup>

@@ -109,8 +109,8 @@ namespace SurvivalMMO_PlayerPlugin
             {
                 using (DarkRiftReader reader = e.GetMessage().GetReader())
                 {
-                    RPCView view = reader.ReadSerializable<RPCView>();
-                    IClient[] clients = view.excludeSelf ? ClientManager.GetAllClients().Except(new IClient[] { e.Client }).ToArray() : ClientManager.GetAllClients();
+                    RPCDataView view = reader.ReadSerializable<RPCDataView>();
+                    IClient[] clients = view.RepeatToClient? ClientManager.GetAllClients():ClientManager.GetAllClients().Except(new IClient[] { e.Client }).ToArray() ;
                     using (Message message = Message.Create(MessageTag.RPC, view))
                     {
                         foreach (IClient sendTo in clients)
@@ -124,12 +124,11 @@ namespace SurvivalMMO_PlayerPlugin
             {
                 using (DarkRiftReader reader = e.GetMessage().GetReader())
                 {
-                    RPCView view = reader.ReadSerializable<RPCView>();
-                    RiftView target = reader.ReadSerializable<RiftView>();
+                    RPCDataView view = reader.ReadSerializable<RPCDataView>();
 
                     using (Message message = Message.Create(MessageTag.RPC, view))
                     {
-                        IClient sendTo = clientList.Find(x => x.ID == target.Owner);
+                        IClient sendTo = clientList.Find(x => x.ID == view.TargetRiftView.Owner);
 
                         sendTo?.SendMessage(message, SendMode.Reliable);
                     }

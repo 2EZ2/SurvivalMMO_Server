@@ -108,7 +108,6 @@ namespace SurvivalMMO_PlayerPlugin
                 }
                 if (bytes != null)
                 {
-                    writer.Write(bytes.Length);
                     writer.Write(bytes);
                 }
             }
