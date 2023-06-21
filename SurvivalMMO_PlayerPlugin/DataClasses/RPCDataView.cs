@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalMMO_PlayerPlugin
 {
-    public class RPCDataView : IDarkRiftSerializable
+    public class RPCDataView : IDarkRiftSerializable, IDisposable
     {
         public RiftView SenderView { get; set; }
         public RiftView TargetRiftView { get; set; }
@@ -73,6 +73,15 @@ namespace SurvivalMMO_PlayerPlugin
             e.Writer.Write(this.MethodName);
             e.Writer.Write(this.RepeatToClient);
             e.Writer.WriteAs(typeof(object), Inputs);
+        }
+
+        public void Dispose()
+        {
+            SenderView = null;
+            TargetRiftView = null;
+            SystemType = null;
+            MethodName = null;
+            Inputs = null;
         }
     }
 }

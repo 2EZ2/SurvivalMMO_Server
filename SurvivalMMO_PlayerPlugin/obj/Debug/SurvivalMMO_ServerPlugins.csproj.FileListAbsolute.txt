@@ -14,3 +14,9 @@ C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlu
 C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_ServerPlugins.csproj.CopyComplete
 C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_PlayerPlugin.dll
 C:\Users\johnl\source\repos\SurvivalMMO\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\Documents\GitHub\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\Documents\GitHub\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\bin\Debug\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\Documents\GitHub\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_ServerPlugins.csproj.CoreCompileInputs.cache
+C:\Users\johnl\Documents\GitHub\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_PlayerPlugin.dll
+C:\Users\johnl\Documents\GitHub\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_PlayerPlugin.pdb
+C:\Users\johnl\Documents\GitHub\SurvivalMMO_Server\SurvivalMMO_PlayerPlugin\obj\Debug\SurvivalMMO_ServerPlugins.csprojAssemblyReference.cache

@@ -74,66 +74,7 @@ namespace SurvivalMMO_PlayerPlugin
 
         void Client_PlayerMessageReceivedEvent(object sender, MessageReceivedEventArgs e)
         {
-            if(e.Tag == MessageTag.SendStream)
-            {            
-                using (DarkRiftReader reader = e.GetMessage().GetReader())
-                {
-                    ushort messageCount = reader.ReadUInt16(); //How many messages am i recieving?
-
-                    //Gather Messages
-                    if (messageCount > 0)
-                    {
-                        RiftMessage[] messages = new RiftMessage[messageCount];
-
-                        for (int i = 0; i < messageCount; i++)
-                        {
-                            messages[i] = reader.ReadSerializable<RiftMessage>();
-                        }
-
-                        using (DarkRiftWriter writer = DarkRiftWriter.Create())
-                        {
-                            writer.Write(messages);
-
-                            using (Message message = Message.Create(MessageTag.ReceivingStream, writer))
-                            {
-                                foreach (IClient sendTo in ClientManager.GetAllClients().Except(new IClient[] { e.Client }))
-                                {
-                                    sendTo.SendMessage(message, SendMode.Unreliable);
-                                }
-                            }
-                        }
-                    }                                                
-                }                   
-            }
-            else if(e.Tag == MessageTag.RPC)
-            {
-                using (DarkRiftReader reader = e.GetMessage().GetReader())
-                {
-                    RPCDataView view = reader.ReadSerializable<RPCDataView>();
-                    IClient[] clients = view.RepeatToClient? ClientManager.GetAllClients():ClientManager.GetAllClients().Except(new IClient[] { e.Client }).ToArray() ;
-                    using (Message message = Message.Create(MessageTag.RPC, view))
-                    {
-                        foreach (IClient sendTo in clients)
-                        {
-                            sendTo.SendMessage(message, SendMode.Reliable);
-                        }
-                    }
-                }
-            }
-            else if (e.Tag == MessageTag.PrivateRPC)
-            {
-                using (DarkRiftReader reader = e.GetMessage().GetReader())
-                {
-                    RPCDataView view = reader.ReadSerializable<RPCDataView>();
-
-                    using (Message message = Message.Create(MessageTag.RPC, view))
-                    {
-                        IClient sendTo = clientList.Find(x => x.ID == view.TargetRiftView.Owner);
-
-                        sendTo?.SendMessage(message, SendMode.Reliable);
-                    }
-                }
-            }
+           
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace SurvivalMMO_PlayerPlugin
 {
     [System.Serializable]
-    public class RiftMessage : IDarkRiftSerializable
+    public class RiftMessage : IDarkRiftSerializable, IDisposable
     {
         public RiftView Sender { get; set; }
 
@@ -41,6 +41,12 @@ namespace SurvivalMMO_PlayerPlugin
             e.Writer.Write<RiftView>(Sender);
             e.Writer.Write(type);
             e.Writer.Write(message);
+        }
+
+        public void Dispose()
+        {
+            Sender = null;
+            message = null;
         }
     }
 }

@@ -46,7 +46,13 @@ namespace SurvivalMMO_PlayerPlugin
 
         private void ClientManager_ClientDisconnected(object sender, ClientDisconnectedEventArgs e)
         {
-
+            foreach (var item in NetworkIdentityCache)
+            {
+                if(item.Value == e.Client.ID)
+                {
+                    NetworkIdentityCache.Remove(item.Key);
+                }
+            }
         }
 
         void Client_PlayerMessageReceivedEvent(object sender, MessageReceivedEventArgs e)
@@ -99,5 +105,7 @@ namespace SurvivalMMO_PlayerPlugin
                 }                   
             }
         }
+
+
     }
 }
